@@ -9,3 +9,8 @@ export const fetchCurrencies = () => (dispatch) => {
     .then((response) => response.json())
     .then((currencyDatas) => dispatch(receiveCurrencies(currencyDatas)));
 };
+
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const addExpense = (expense, exchangeRates) => (
+  { type: ADD_EXPENSE, payload: { ...expense, exchangeRates } }
+);
