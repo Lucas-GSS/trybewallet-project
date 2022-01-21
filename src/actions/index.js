@@ -14,3 +14,6 @@ export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const addExpense = (expense, exchangeRates) => (
   { type: ADD_EXPENSE, payload: { ...expense, exchangeRates } }
 );
+
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const deleteExpense = (id) => ({ type: DELETE_EXPENSE, id });
