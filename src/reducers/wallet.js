@@ -10,7 +10,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case RECEIVE_CURRENCIES:
     return ({
       ...state,
-      currencies: action.payload,
+      currencies: Object.keys(action.payload).filter((symbol) => symbol !== 'USDT'),
     });
   case ADD_EXPENSE:
     return ({
