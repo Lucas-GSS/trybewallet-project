@@ -36,7 +36,6 @@ class ExpenseForm extends Component {
   }
 
   async handleClick() {
-    console.log(await this.getExchangeRates());
     const { id } = this.state;
     const { dispatchExpense } = this.props;
     dispatchExpense(this.state, await this.getExchangeRates());
