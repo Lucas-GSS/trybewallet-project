@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense, fetchCurrencies } from '../actions';
+import { addExpense } from '../actions';
 import CurrencyInput from './CurrencyInput';
 import DescriptionInput from './DescriptionInput';
 import ValueInput from './ValueInput';
@@ -22,11 +22,6 @@ class ExpenseForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-  }
-
-  async componentDidMount() {
-    const { dispatchFetchCurrencies } = this.props;
-    await dispatchFetchCurrencies();
   }
 
   async getExchangeRates() {
@@ -77,12 +72,10 @@ class ExpenseForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchCurrencies: () => dispatch(fetchCurrencies()),
   dispatchExpense: (state, exchangeRates) => dispatch(addExpense(state, exchangeRates)),
 });
 
 ExpenseForm.propTypes = {
-  dispatchFetchCurrencies: PropTypes.func.isRequired,
   dispatchExpense: PropTypes.func.isRequired,
 };
 
