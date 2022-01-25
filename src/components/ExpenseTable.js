@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class ExpenseTable extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleDelete({ target }) {
@@ -14,6 +15,12 @@ class ExpenseTable extends Component {
     const { dispatchDelete } = this.props;
     dispatchDelete(parseInt(id, 10));
     target.remove(target.parentElement.parentElement);
+  }
+
+  handleEdit({ target }) {
+    const { id } = target.parentElement.parentElement;
+    const { dispatchEdit } = this.props;
+    dispatchEdit(id);
   }
 
   render() {
@@ -53,7 +60,13 @@ class ExpenseTable extends Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  <button type="button">Editar</button>
+                  <button
+                    data-testid="edit-btn"
+                    type="button"
+                    onClick={ this.handleEdit }
+                  >
+                    Editar
+                  </button>
                   <button
                     data-testid="delete-btn"
                     type="button"
@@ -77,11 +90,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchDelete: (id) => dispatch(deleteExpense(id)),
+  dispatchEdit: (id) => dispatch(editExpense(id)),
 });
 
 ExpenseTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatchDelete: PropTypes.func.isRequired,
+  dispatchEdit: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTable);
